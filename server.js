@@ -16,23 +16,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --------- CORS Configuration ---------
-const allowedOrigins = [
-  "http://localhost:5173",                    // Local frontend
-  "https://rabbit-abhi-l2j4.vercel.app",      // Your deployed frontend
-];
-
+// --------- CORS Configuration (Allow All) ---------
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "*", // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    credentials: false, // set to true only if using cookies/auth headers
   })
 );
 
